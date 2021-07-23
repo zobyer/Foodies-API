@@ -16,10 +16,11 @@ class CreateFoodsTable extends Migration
         Schema::create('foods', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
-            $table->longText('description');
-            $table->string('zilla', 20);
+            $table->longText('description')->nullable();
+            $table->string('zilla', 20)->nullable();
             $table->float('price');
-            $table->binary('image');
+            $table->string('image')->nullable();
+            $table->integer('point')->unsigned()->default(5);
             $table->timestamps();
         });
     }

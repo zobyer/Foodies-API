@@ -22,9 +22,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('registration',[UserController::class,'registration']);
 Route::post('login',[UserController::class,'index']);
-Route::get('getfood/{id}',[FoodsController::class,'getfoodbyid']);
+
+
 Route::group(['middleware' => 'auth:sanctum'], function(){
     //All secure URL's
-    Route::post('store',[FoodsController::class,'storefoods']);
-    //Route::get('getfood/{id}',[FoodsController::class,'getfoodbyid']);
+    Route::get('getfood/{id}',[FoodsController::class,'getFoodbyId']);
+    Route::post('store',[FoodsController::class,'storeFood']);
+    Route::get('getallfood',[FoodsController::class,'getAllFoods']);
+    Route::get('getfamousfood',[FoodsController::class,'getFamousFoods']);
 });

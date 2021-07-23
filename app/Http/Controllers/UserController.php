@@ -19,7 +19,7 @@ class UserController extends Controller
         $user->phone_no = $request->phone_no;
         $user->save();
 
-        return response()->json('successful', 200);
+        return response()->json(['status' =>TRUE, 'log'=>"user Created Successfully"], 200);
     }
 
     function index(Request $request)
