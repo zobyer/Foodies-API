@@ -26,8 +26,14 @@ Route::post('login',[UserController::class,'index']);
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
     //All secure URL's
-    Route::get('getfood/{id}',[FoodsController::class,'getFoodbyId']);
-    Route::post('store',[FoodsController::class,'storeFood']);
-    Route::get('getallfood',[FoodsController::class,'getAllFoods']);
-    Route::get('getfamousfood',[FoodsController::class,'getFamousFoods']);
+    
+    Route::prefix('foods/')->group(function () {
+        Route::get('byid/{id}',[FoodsController::class,'getFoodbyId']);
+        Route::post('store',[FoodsController::class,'storeFood']);
+        Route::get('all',[FoodsController::class,'getAllFoods']);
+        Route::get('famous',[FoodsController::class,'getFamousFoods']);
+        Route::get('search/city',[FoodsController::class,'searchByCity']);
+        Route::get('search/food',[FoodsController::class,'searchByFood']);
+    });
+    
 });

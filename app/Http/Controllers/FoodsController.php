@@ -49,7 +49,7 @@ class FoodsController extends Controller
             $dirname = storage_path()."/app/".$food->image;
             $img = file_get_contents($dirname);
             $img_data = base64_encode($img);
-            $food->image = $img_data;
+            $food->image = "data:image/png;base64,".$img_data;
         }
         return response()->json(["status" => TRUE,"foods" => $foods], 200);
     }
@@ -57,15 +57,46 @@ class FoodsController extends Controller
     public function getFamousFoods(){
         $foods = DB::table('foods')
         ->orderBy('point', 'DESC')
-        ;
+        ->take(10)
+        ->get();
 
-        // foreach($foods as $food){
-        //     $dirname = storage_path()."/app/".$food->image;
-        //     $img = file_get_contents($dirname);
-        //     $img_data = base64_encode($img);
-        //     $food->image = $img_data;
-        // }
+        foreach($foods as $food){
+            $dirname = storage_path()."/app/".$food->image;
+            $img = file_get_contents($dirname);
+            $img_data = base64_encode($img);
+            $food->image = "data:image/png;base64,".$img_data;
+        }
         return response()->json(["status" => TRUE,"foods" => $foods], 200);
     }
+
+    public function searchByCity(Request $request){
+       // return response()->json([$request['name']], 200);
+        $foods = DB::table('foods')
+                ->where('zilla', 'like', '%' .$request['name']. '%')->get();
+
+        foreach($foods as $food){
+            $dirname = storage_path()."/app/".$food->image;
+            $img = file_get_contents($dirname);
+            $img_data = base64_encode($img);
+            $food->image = "data:image/png;base64,".$img_data;
+        }
+
+        return response()->json(["status" => TRUE,"foods" => $foods], 200);
+    }
+
+    public function searchByFood(Request $request){
+        // return response()->json([$request['name']], 200);
+         $foods = DB::table('foods')
+                 ->where('name', 'like', '%' .$request['name']. '%')->get();
+
+        foreach($foods as $food){
+            $dirname = storage_path()."/app/".$food->image;
+            $img = file_get_contents($dirname);
+            $img_data = base64_encode($img);
+            $food->image = "data:image/png;base64,".$img_data;
+        }
+ 
+         return response()->json(["status" => TRUE,"foods" => $foods], 200);
+     }
 
 }
