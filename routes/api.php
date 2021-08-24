@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FoodsController;
+use App\Http\Controllers\OrdersController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +36,17 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         Route::get('famous',[FoodsController::class,'getFamousFoods']);
         Route::get('search/city',[FoodsController::class,'searchByCity']);
         Route::get('search/food',[FoodsController::class,'searchByFood']);
+    });
+
+
+    Route::prefix('cart/')->group(function(){
+        Route::post('add',[OrdersController::class,'addToCart']);
+        Route::get('count/{id}',[OrdersController::class,'countCart']);
+        Route::post('delete',[OrdersController::class,'removefromcart']);
+    });
+
+    Route::prefix('orders/')->group(function(){
+        Route::get('all/{id}',[OrdersController::class,'getAllOrders']);
     });
     
 });
