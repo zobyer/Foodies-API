@@ -47,6 +47,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::prefix('orders/')->group(function(){
         Route::get('all/{id}',[OrdersController::class,'getAllOrders']);
+        Route::post('place',[OrdersController::class,'placeOrders']);
     });
     
 });

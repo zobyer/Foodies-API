@@ -64,4 +64,26 @@ class OrdersController extends Controller
 
         return response()->json(['status' =>TRUE, 'data'=>$orders, 'totalprice' => $total[0]->totalprice], 200);
     }
+
+    public function placeOrders(Request $request){
+        
+        $carts = DB::table('carts')
+        ->where('user_id', '=', $request->user_id)
+        ->select('carts.*', DB::raw('COUNT(carts.food_id) as total'))
+        ->groupBy('food_id')
+        ->get();
+
+        DB::table('orders')->insert([
+            'user_id' => $request->user_id,
+            'food_id' => $carts->food_id,
+            'count' => $carts->total,
+            'address_id' => $request->address_id,
+            'created_at' => Carbon::now()
+        ]);
+
+        DB::table('carts')->where('user_id', '=', $request->user_id)->delete();
+
+
+        return response()->json(['status' =>TRUE, 'log'=>"order placed Successfully"], 200);
+    }
 }
