@@ -48,6 +48,12 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::prefix('orders/')->group(function(){
         Route::get('all/{id}',[OrdersController::class,'getAllOrders']);
         Route::post('place',[OrdersController::class,'placeOrders']);
+        Route::post('address',[OrdersController::class,'addAddress']);
+        Route::get('address/{id}',[OrdersController::class,'getAddress']);
+        Route::get('last/address/{id}',[OrdersController::class,'getLastAddress']);
+        Route::get('address/id/{id}/{address_id}',[OrdersController::class,'getAddressById']);
     });
+
+    Route::get('my-orders/{id}',[OrdersController::class,'getPlacedOrders']);
     
 });

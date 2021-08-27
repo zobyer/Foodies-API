@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration
             $table->bigInteger('food_id');
             $table->Integer('count');
             $table->bigInteger('address_Id');
+            $table->Integer('status');
             $table->timestamps();
         });
     }
