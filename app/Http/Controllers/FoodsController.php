@@ -10,7 +10,6 @@ class FoodsController extends Controller
     public function storeFood(Request $request){
         
         
-
         if($request->hasFile('image')){
             $image = $request->file('image')->store('images');
         }

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FoodsController;
 use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\AdminController;
 
 
 /*
@@ -55,5 +56,11 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     });
 
     Route::get('my-orders/{id}',[OrdersController::class,'getPlacedOrders']);
+
+
+    Route::prefix('admin/')->group(function(){
+        
+        Route::get('orders/pending',[AdminController::class,'fetchAllPendingOrders']);
+    });
     
 });
