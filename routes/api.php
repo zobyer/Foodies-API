@@ -60,7 +60,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::prefix('admin/')->group(function(){
         
-        Route::get('orders/pending',[AdminController::class,'fetchAllPendingOrders']);
+        Route::post('orders/pending',[AdminController::class,'fetchAllPendingOrders']);
+        Route::post('orders/update-state',[AdminController::class,'updateStatus']);
     });
     
 });
